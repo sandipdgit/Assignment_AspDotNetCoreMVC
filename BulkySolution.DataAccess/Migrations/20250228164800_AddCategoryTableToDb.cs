@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace CoreWebBulky.Migrations
+namespace BulkySolution.DataAccess.Migrations
 {
     /// <inheritdoc />
     public partial class AddCategoryTableToDb : Migration

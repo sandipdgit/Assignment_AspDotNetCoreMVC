@@ -1,6 +1,6 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using CoreWebBulky.Models;
+using BulkySolution.Models;
 
 namespace CoreWebBulky.Controllers;
 

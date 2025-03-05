@@ -3,8 +3,9 @@ using BookLibrary.DataAccess.Repository.IRepository;
 using BookLibrary.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BookLibraryWeb.Controllers
+namespace BookLibraryWeb.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     public class CategoryController : Controller
     {
 

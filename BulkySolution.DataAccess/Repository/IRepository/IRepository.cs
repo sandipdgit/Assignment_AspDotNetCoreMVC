@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BulkySolution.DataAccess.Repository.IRepository
 {
-    interface IRepository<T> where T : class
+    public interface IRepository<T> where T : class
     {
         //T - Category
         IEnumerable<T> GetAll();

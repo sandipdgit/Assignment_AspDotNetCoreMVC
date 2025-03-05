@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace BulkySolution.DataAccess.Repository
 {
-    class CategoryRepository : Repository<Category>, ICategoryRepositoy
+    public class CategoryRepository : Repository<Category>, ICategoryRepository
     {
 
         private ApplicationDbContext _db;

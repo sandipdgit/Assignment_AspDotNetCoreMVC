@@ -25,7 +25,7 @@ namespace BookLibraryWeb.Areas.Admin.Controllers
 
         public IActionResult Create()
         {
-            //used for populating category dropdown option value
+            //used for populating category dropdown option value kew value pair.
             IEnumerable<SelectListItem> CategoryList = _unitOfWork.Category
                .GetAll().Select(u => new SelectListItem
                {
@@ -33,7 +33,11 @@ namespace BookLibraryWeb.Areas.Admin.Controllers
                    Value = u.Id.ToString()
                });
 
-            ViewBag.CategoryList = CategoryList;
+            //Way of dropdow option value filled using ViewData
+            //ViewBag.CategoryList = CategoryList;
+
+            //Way of dropdow option value filled using ViewData
+            ViewData["CategoryList"] = CategoryList; 
 
             return View();
         }

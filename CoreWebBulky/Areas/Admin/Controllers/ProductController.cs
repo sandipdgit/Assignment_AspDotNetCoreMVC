@@ -2,14 +2,13 @@
 using BookLibrary.DataAccess.Repository.IRepository;
 using BookLibrary.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace BookLibraryWeb.Areas.Admin.Controllers
 {
     [Area("Admin")]
     public class ProductController : Controller
     {
-
-        //private readonly IProductRepository _productRepo;
 
         private readonly IUnitOfWork _unitOfWork;
         public ProductController(IUnitOfWork unitOfWork)
@@ -21,12 +20,21 @@ namespace BookLibraryWeb.Areas.Admin.Controllers
         {
 
             List<Product> objProductList = _unitOfWork.Product.GetAll().ToList();
-            
             return View(objProductList);
         }
 
         public IActionResult Create()
         {
+            //used for populating category dropdown option value
+            IEnumerable<SelectListItem> CategoryList = _unitOfWork.Category
+               .GetAll().Select(u => new SelectListItem
+               {
+                   Text = u.Name,
+                   Value = u.Id.ToString()
+               });
+
+            ViewBag.CategoryList = CategoryList;
+
             return View();
         }
 
@@ -44,7 +52,7 @@ namespace BookLibraryWeb.Areas.Admin.Controllers
                 TempData["success"] = "Product created successfully";
                 return RedirectToAction("Index");
             }
-            return View(obj);
+            return View();
                 
         }
 
@@ -92,9 +100,9 @@ namespace BookLibraryWeb.Areas.Admin.Controllers
                 return NotFound();
             }
             Product? productFromDb = _unitOfWork.Product.Get(u => u.Id == id);
-            //Category? categoryFromDb = _categoryRepo.Get(u => u.Id == id);
-            //Category? categoryFromDb = _db.Categories.Find(id);
-            //Category? categoryFromDb = _db.Category.Get(u => u.Id == id);
+            //Product? productFromDb = _productRepo.Get(u => u.Id == id);
+            //Product? productFromDb = _db.Products.Find(id);
+            //Product? productFromDb = _db.Product.Get(u => u.Id == id);
 
             if (productFromDb == null)
             {
@@ -106,9 +114,9 @@ namespace BookLibraryWeb.Areas.Admin.Controllers
         public IActionResult DeletePOST(int? id)
         {
             Product? obj = _unitOfWork.Product.Get(u => u.Id == id);
-            //Category? obj = _categoryRepo.Get(u => u.Id == id);
-            //Category? obj = _db.Categories.Find(id);
-            //Category? obj = _db.Category.Get(u => u.Id == id);
+            //Product? obj = _productRepo.Get(u => u.Id == id);
+            //Product? obj = _db.Products.Find(id);
+            //Product? obj = _db.Product.Get(u => u.Id == id);
             if (obj == null)
             {
                 return NotFound();

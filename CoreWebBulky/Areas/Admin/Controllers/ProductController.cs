@@ -24,7 +24,7 @@ namespace BookLibraryWeb.Areas.Admin.Controllers
             return View(objProductList);
         }
 
-        public IActionResult Create()
+        public IActionResult Upsert(int? id)
         {
             //Way of dropdown option value filled using ViewModel
             ProductVM productVM = new()
@@ -37,14 +37,25 @@ namespace BookLibraryWeb.Areas.Admin.Controllers
                }),
                 Product = new Product()
             };
+            if (id == null || id == 0)
+            {
+                //Create
+                return View(productVM);
+            }
+            else
+            {
+                //Update
+                productVM.Product = _unitOfWork.Product.Get(u => u.Id == id);
+                return View(productVM);
+            }
 
-            return View(productVM);
+            
         }
 
      
 
         [HttpPost]
-        public IActionResult Create(ProductVM productVM)
+        public IActionResult Upsert(ProductVM productVM, IFormFile? file)
         {
            
             
@@ -71,42 +82,6 @@ namespace BookLibraryWeb.Areas.Admin.Controllers
                 
         }
 
-
-        public IActionResult Edit(int? id)
-        {
-            if (id == null || id == 0)
-            {
-                return NotFound();
-            }
-
-            Product? productFromDb = _unitOfWork.Product.Get(u=>u.Id == id);
-            //Product? productFromDb = _productRepo.Get(u=>u.Id == id);
-            //Product? productFromDb = _db.Products.Find(id);
-            //Product? productFromDb1 = _db.Products.FirstOrDefault(u=>u.Id==id);
-            //Product? productFromDb2 = _db.Products.Where(u=>u.Id==id).FirstOrDefault();
-
-            if (productFromDb == null)
-            {
-                return NotFound();
-            }
-            return View(productFromDb);
-        }
-        [HttpPost]
-        public IActionResult Edit(Product obj)
-        {
-            if (ModelState.IsValid)
-            {
-
-                _unitOfWork.Product.Update(obj);
-                _unitOfWork.Save();
-                //_db.Product.Update(obj);
-                //_db.Save();
-                TempData["success"] = "Product updated successfully";
-                return RedirectToAction("Index");
-            }
-            return View();
-
-        }
 
         public IActionResult Delete(int? id)
         {

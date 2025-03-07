@@ -2,6 +2,9 @@ using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using BookLibrary.Models;
 using BookLibrary.DataAccess.Repository.IRepository;
+using BookLibrary.Utility;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace BookLibraryWeb.Areas.Customer.Controllers;
 
@@ -25,9 +28,9 @@ public class HomeController : Controller
     public IActionResult Details(int productId)
     {
         Product product = _unitOfWork.Product.Get(u => u.Id == productId, includeProperties: "Category");
-        
         return View(product);
     }
+
 
     public IActionResult Privacy()
     {

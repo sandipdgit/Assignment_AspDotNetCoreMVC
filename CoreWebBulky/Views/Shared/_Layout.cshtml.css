@@ -46,3 +46,10 @@ button.accept-policy {
   white-space: nowrap;
   line-height: 60px;
 }
+
+.row-border {
+    border: 1px solid !important;
+    margin-right: auto !important;
+    margin-left: auto !important;
+}
+

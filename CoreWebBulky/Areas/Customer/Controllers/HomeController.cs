@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using BookLibrary.Models;
+using BookLibrary.DataAccess.Repository.IRepository;
 
 namespace BookLibraryWeb.Areas.Customer.Controllers;
 
@@ -8,15 +9,17 @@ namespace BookLibraryWeb.Areas.Customer.Controllers;
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
-
-    public HomeController(ILogger<HomeController> logger)
+    private readonly IUnitOfWork _unitOfWork;
+    public HomeController(ILogger<HomeController> logger, IUnitOfWork unitOfWork)
     {
         _logger = logger;
+        _unitOfWork = unitOfWork;
     }
 
     public IActionResult Index()
     {
-        return View();
+        IEnumerable<Product> productList = _unitOfWork.Product.GetAll(includeProperties: "Category");
+        return View(productList);
     }
 
     public IActionResult Privacy()

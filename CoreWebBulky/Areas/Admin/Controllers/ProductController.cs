@@ -2,12 +2,15 @@
 using BookLibrary.DataAccess.Repository.IRepository;
 using BookLibrary.Models;
 using BookLibrary.Models.ViewModels;
+using BookLibrary.Utility;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace BookLibraryWeb.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = SD.Role_Admin)]
     public class ProductController : Controller
     {
 

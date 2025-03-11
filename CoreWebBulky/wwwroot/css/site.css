@@ -39,3 +39,7 @@ body {
     margin: auto 0.25rem;
     box-shadow: 0 -2px;
 }
+
+div.dt-container select.dt-input {
+    background-color: #060606;
+}
